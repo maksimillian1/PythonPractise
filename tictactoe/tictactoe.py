@@ -33,28 +33,9 @@ class TicTacToe:
 		for lst in matr:
 			for item in lst:
 				test.append(self.board[int(item[0])][int(item[1])])
-			if test.count('x') == 3 or test.count('0') == 3:
-				return True
+			if test.count('x') == 3:
+				return 'x'
+			elif test.count('0') == 3:
+				return 'o'
 			test = []
-		return False
-
-	def start(self):
-		turn = None
-		print(self)
-		while True:
-			if self.check(self):
-				break
-			turn = input("")
-			if self.current:
-				self.board[int(turn[0])][int(turn[1])] = 'x'
-				self.current = False
-
-			else:
-				self.board[int(turn[0])][int(turn[1])] = '0'
-				self.current = True
-			print(self)
-
-
-if __name__ == "__main__":
-	game = TicTacToe()
-	game.start()
+		return None
