@@ -1,4 +1,4 @@
-import sys
+import sys, re
 from PyQt5.QtWidgets import QPushButton, QGridLayout, \
     QDesktopWidget, QApplication, QWidget, QButtonGroup, QLabel, QErrorMessage
 
@@ -39,23 +39,25 @@ class Calc(QWidget):
                 error_dialog.exec_()
                 self.calc_field.setText('')
         else:
-            self.calc_field.setText(self.calc_field.text() + btn.text())
+            if self.calc_field.text() == '':
+                self.calc_field.setText(btn.text())
+            else:
+                self.calc_field.setText(self.calc_field.text() + btn.text())
 
     @staticmethod
     def to_operand_list(to_render):
-        tmp, lst = '', []
-        for i in to_render:
-            if i not in Calc.OPERATIONS:
-                tmp += i
-            else:
-                lst.append(tmp)
-                lst += i
-                tmp = ''
-        lst += tmp
-        return lst
+        regex = r'\+|-|\/|\*'
+        nums = re.split(regex, to_render)
+        nums.remove('')
+
+        for i in range(len(to_render)):
+            if to_render[i] in Calc.OPERATIONS and to_render[i] != nums[i]:
+                nums.insert(i, to_render[i])
+        return nums
 
     @staticmethod
     def calc(lst):
+        Calc.basic_validate(lst)
         res = float(lst[0])
         for i in range(len(lst[1:])):
             if lst[i] in Calc.OPERATIONS:
@@ -68,6 +70,12 @@ class Calc(QWidget):
                 else:
                     res /= float(lst[i + 1])
         return res
+
+    @staticmethod
+    def basic_validate(lst):
+        if lst[0] == '-' or '+':
+            lst[1] = str(lst[0]+lst[1])
+            lst.pop(0)
 
     def button_group(self):
         BTN_LST = ['7', '8', '9', '/',

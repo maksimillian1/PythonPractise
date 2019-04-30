@@ -1,11 +1,19 @@
-import string
-import re
-
-to_render = "12+4-4+5"
+import sys
+from PyQt5.QtWidgets import QWidget, QApplication, QPushButton, QLabel, QDesktopWidget
 
 
+class FileRender(QWidget):
+
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+
+        self.show()
 
 
-
-# nums = [i for i in to_render if i not in OPERATIONS]
-# print(nums)
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    file = FileRender()
+    sys.exit(app.exec_())

@@ -23,7 +23,7 @@ class GridLayout(QWidget):
 
         self.setWindowTitle("Digits")
         self.center()
-        self.show()
+        # self.show()
 
     def center(self):
         geom = self.frameGeometry()

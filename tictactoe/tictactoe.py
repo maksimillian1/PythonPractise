@@ -35,7 +35,7 @@ class TicTacToe:
 				test.append(self.board[int(item[0])][int(item[1])])
 			if test.count('x') == 3:
 				return 'x'
-			elif test.count('0') == 3:
+			elif test.count('o') == 3:
 				return 'o'
 			test = []
 		return None
