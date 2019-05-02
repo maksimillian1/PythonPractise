@@ -1,28 +1,28 @@
-import sys
-from PyQt5.QtWidgets import *
-from tictactoe import TicTacToe
-from win_wind import WinnerWindow
+from tictactoe import *
+from win_wind import *
 
 
 class App(QWidget):
 
     def __init__(self):
         super().__init__()
-        self.title = 'Tic Tac Toe'
         self.initUI()
         self.game = TicTacToe()
-        self.button_group = QButtonGroup()
-        self.pos = [(i, j) for i in range(3) for j in range(3)]
         self.wind = None
 
     def initUI(self):
-        self.setWindowTitle(self.title)
+        self.setWindowTitle('Tic Tac Toe')
         self.createGridLayout()
+        TicTacToe.center(self)
+        self.resize(400, 100)
         self.show()
+
 
     def createGridLayout(self):
         layout = QGridLayout()
         self.setLayout(layout)
+        self.pos = [(i, j) for i in range(3) for j in range(3)]
+        self.button_group = QButtonGroup()
 
         for ps, num in zip(self.pos, range(9)):
             b = QPushButton("")
@@ -51,9 +51,3 @@ class App(QWidget):
             self.wind = WinnerWindow(res)
             self.wind.show()
             self.close()
-
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = App()
-    sys.exit(app.exec_())

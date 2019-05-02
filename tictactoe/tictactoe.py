@@ -1,4 +1,6 @@
-import os
+import os, sys
+import gui_table
+from PyQt5.QtWidgets import *
 
 
 class TicTacToe:
@@ -20,6 +22,13 @@ class TicTacToe:
 		return [num for num in string[indx:-1].split(',')]
 
 	@staticmethod
+	def center(self):
+		geom = self.frameGeometry()
+		cnt = QDesktopWidget().availableGeometry().center()
+		geom.moveCenter(cnt)
+		self.move(geom.topLeft())
+
+	@staticmethod
 	def winlist():
 		my_path = os.path.abspath(os.path.dirname(__file__))
 		path = os.path.join(my_path, "templates/wins.properties")
@@ -39,3 +48,9 @@ class TicTacToe:
 				return 'o'
 			test = []
 		return None
+
+
+if __name__ == '__main__':
+	app = QApplication(sys.argv)
+	game = gui_table.App()
+	sys.exit(app.exec_())
